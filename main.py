@@ -66,10 +66,8 @@ async def confirm_password(message: types.Message, state: FSMContext):
         check_db()
         await state.finish()
         user_data.clear()
-        await message.answer("I successfully registered you. You need to read rules and agree with it to get the link and join PAT-dev channel.!")
-        await message.answer("1. Respect each other. No insults, hate speech, or discrimination will be tolerated. /n2.Keep the conversation on topic. Off-topic messages may be removed. /n3.No spamming or self-promotion allowed. This includes posting links to external websites or channels. /n4.No NSFW content allowed. /n5.No sharing of personal information. /n6.Be mindful of language. Keep the chat clean and appropriate. /n7.Any violation of these rules may result in a warning or ban from the channel or chat.", reply_markup=ak)
-        invite = await bot.create_chat_invite_link(DCI, member_limit=1)
-        await message.answer(invite.invite_link)
+        await message.answer("I successfully registered you. You need to read rules and agree with it to get the one-time link and join PAT-dev channel.!")
+        await message.answer("1. Respect each other. No insults, hate speech, or discrimination will be tolerated. \n2.Keep the conversation on topic. Off-topic messages may be removed. \n3.No spamming or self-promotion allowed. This includes posting links to external websites or channels. \n4.No NSFW content allowed. \n5.No sharing of personal information. \n6.Be mindful of language. Keep the chat clean and appropriate. \n7.Any violation of these rules may result in a warning or ban from the channel or chat.", reply_markup=ak)
     else:
         print(message.text)
         print(user_data[0])
@@ -79,6 +77,13 @@ async def confirm_password(message: types.Message, state: FSMContext):
         await state.finish()
         user_data.clear()
 
+@dp.message_handler()
+async def agrees(message: types.Message):
+    if message.text == "I agree! 👍":
+        invite = await bot.create_chat_invite_link(DCI, member_limit=1)
+        await message.answer(invite.invite_link)
+    elif message.text == 'I disagree!👎':
+        await message.answer("So, you will not get the link, until you agree with rules.", reply_markup=ak)
 
 # Check DB methods
 # my_list = [input("Enter username: "), input("Enter password: ")]

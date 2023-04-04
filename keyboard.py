@@ -1,8 +1,8 @@
-from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 # Start Bot
 
 # Agree or Disagree button
-agree = InlineKeyboardButton("I agree! 👍", callback_data='I agree!👍')
-disagree = InlineKeyboardButton("I disagree!👎", callback_data='I disagree!👎')
+agree = KeyboardButton("I agree! 👍")
+disagree = KeyboardButton("I disagree!👎")
 
-agrees_keyboard = InlineKeyboardMarkup().row(agree, disagree)
+agrees_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(agree, disagree)
